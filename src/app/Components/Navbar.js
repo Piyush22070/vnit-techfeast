@@ -1,14 +1,19 @@
-"use client"
-import React, { useState, useEffect } from 'react';
+"use client";
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { LuShoppingBag, LuMenu, LuX } from "react-icons/lu";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
+import gsap from "gsap"; // Import GSAP
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  // Function to handle scroll
+  const logoRef = useRef(null);
+  const navLinksRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+
+  // Handle scroll to make navbar sticky
   const handleScroll = () => {
     if (window.scrollY > 50) {
       setSticky(true);
@@ -19,11 +24,47 @@ const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    
+
+    // GSAP animations for logo and nav links
+    gsap.fromTo(logoRef.current, {
+      opacity: 0,
+      y: -50,
+    }, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "easeOut",
+    });
+
+    gsap.fromTo(navLinksRef.current.children, {
+      opacity: 0,
+      y: 20,
+    }, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.2,
+      ease: "easeOut",
+    });
+
+    // GSAP mobile menu opening/closing animation
+    if (isOpen) {
+      gsap.to(mobileMenuRef.current, {
+        x: 0,
+        duration: 0.3,
+        ease: "power3.out",
+      });
+    } else {
+      gsap.to(mobileMenuRef.current, {
+        x: '100%',
+        duration: 0.3,
+        ease: "power3.out",
+      });
+    }
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [isOpen]); // Re-run effect when mobile menu opens/closes
 
   // Toggle mobile menu
   const toggleMenu = () => {
@@ -34,12 +75,12 @@ const Navbar = () => {
     <div className={`navbar-container ${sticky ? 'sticky' : ''} relative z-50`}>
       <div className={`flex justify-between items-center p-4 ${sticky ? 'bg-black' : 'bg-black'} text-white`}>
         {/* Logo */}
-        <div className="text-3xl font-bold">
+        <div ref={logoRef} className="text-3xl font-bold">
           TechUtsav
         </div>
 
-        {/* Desktop Navigation */}
-        <motion.div className="hidden md:flex justify-between items-center space-x-4">
+        {/* Desktop Navigation Links */}
+        <motion.div ref={navLinksRef} className="hidden md:flex justify-between items-center space-x-4">
           <Link href="/" className="hover:underline cursor-pointer">Home</Link>
           <Link href="/about" className="hover:underline cursor-pointer">About</Link>
           <Link href="/events" className="hover:underline cursor-pointer">Events</Link>
@@ -64,6 +105,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={mobileMenuRef}
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
@@ -93,7 +135,7 @@ const Navbar = () => {
         )}
       </AnimatePresence>
 
-      {/* Overlay when mobile menu is open */}
+   
       {isOpen && (
         <motion.div
           initial={{ opacity: 0 }}
