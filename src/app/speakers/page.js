@@ -1,6 +1,7 @@
 'use client'
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const speakers = [
   {
@@ -89,11 +90,14 @@ const Speakers = () => {
             variants={fadeInUp}
           >
             {/* Speaker Image */}
-            <img
+            <Image
               src={speaker.imageUrl}
               alt={speaker.alt}
               className="w-full h-64 object-cover"
+              width={20}
+              height={20}
             />
+            
 
             {/* Speaker Info */}
             <div className="p-5 text-center">

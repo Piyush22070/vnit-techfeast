@@ -4,7 +4,7 @@ import { motion } from "motion/react"
 import Spline from '@splinetool/react-spline'; 
 
 const Home = () => {
-  const [splineLoading, setSplineLoading] = useState(true);
+  // const [splineLoading, setSplineLoading] = useState(true);
   const [showSpline, setShowSpline] = useState(false);
 
   const path = '/images/scene.splinecode';
@@ -12,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSpline(true);
-      setSplineLoading(false);
+      // setSplineLoading(false);
     }, 2000); // Increased time for debugging
 
     return () => clearTimeout(timer);
