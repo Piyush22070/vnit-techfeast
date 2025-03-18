@@ -1,90 +1,112 @@
-import React from 'react';
-// import { motion } from "framer-motion" 
-// import { speakers } from '../data';
+'use client'
+import React from "react";
+import { motion } from "framer-motion";
 
-export  default function Speakers(){
-  
+const speakers = [
+  {
+    name: "Kristin Watson",
+    title: "EXECUTIVE DIRECTOR",
+    imageUrl:
+      "https://storage.googleapis.com/a1aa/image/wfNVH0c8hXe4IVwB4fiJ1MguDJ0qFkuAc2Wd3dDW_Ms.jpg",
+    alt: "Portrait of Kristin Watson, Executive Director",
+  },
+  {
+    name: "Courtney Henry",
+    title: "GLOBAL DEVOPS LEAD",
+    imageUrl:
+      "https://storage.googleapis.com/a1aa/image/rY8QvZOOsv7obPnPGl6Lotle9_sEDiyJUBNUeVo1PVs.jpg",
+    alt: "Portrait of Courtney Henry, Global DevOps Lead",
+  },
+  {
+    name: "Marvin McKinney",
+    title: "DEVELOPER COMMUNITIES",
+    imageUrl:
+      "https://storage.googleapis.com/a1aa/image/Y70MhOEoEWdE-YdDsbebljX5TOEKckgPS7e-GL3iGzM.jpg",
+    alt: "Portrait of Marvin McKinney, Developer Communities",
+  },
+  {
+    name: "Dianne Russell",
+    title: "CYBERSECURITY EXPERT",
+    imageUrl:
+      "https://images.unsplash.com/photo-1601655781320-205e34c94eb1?q=80&w=1200&auto=format&fit=crop",
+    alt: "Portrait of Dianne Russell, Cybersecurity Expert",
+  },
+  {
+    name: "Jacob Jones",
+    title: "SOFTWARE ARCHITECT",
+    imageUrl:
+      "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1200&auto=format&fit=crop",
+    alt: "Portrait of Jacob Jones, Software Architect",
+  },
+  {
+    name: "Esther Howard",
+    title: "AI RESEARCHER",
+    imageUrl:
+      "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?q=80&w=1200&auto=format&fit=crop",
+    alt: "Portrait of Esther Howard, AI Researcher",
+  },
+  {
+    name: "Ralph Edwards",
+    title: "PRODUCT MANAGER",
+    imageUrl:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop",
+    alt: "Portrait of Ralph Edwards, Product Manager",
+  },
+];
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+};
+
+const Speakers = () => {
   return (
-    <main 
-      className="container mx-auto py-12 px-6 bg-black"
-      style={{
-        backgroundImage: `radial-gradient(circle at 0.5px 0.5px, rgba(6, 182, 212, 0.2) 0.5px, transparent 0)`,
-        backgroundSize: "9px 9px",
-        backgroundRepeat: "repeat",
-      }}
-    >
-     
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-black text-white py-12 px-6">
+      {/* Section Title */}
+      <motion.h2
+        className="text-center text-4xl font-bold uppercase tracking-wide mb-10 text-cyan-400"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+      >
+        Speakers
+      </motion.h2>
 
-      {/* Section Title with Animation */}
-      {/* <motion.div
-        className="text-white pb-8 text-center"
-        initial={{ opacity: 0, y: -50 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 1.2, ease: "easeOut" }} 
-        whileHover={{
-            scale: 1.1, 
-            transition: { duration: 0.3, ease: "easeInOut" }, 
-        }}
-        style={{
-            fontSize: "3rem",
-            fontWeight: "900", 
-            letterSpacing: "2px", 
-            textTransform: "uppercase", 
-            fontFamily: "'Poppins', sans-serif", 
-            background: "transparent", 
-            color: "transparent", 
-            backgroundImage: "linear-gradient(90deg, rgba(255, 0, 150, 1), rgba(0, 255, 255, 1))", 
-            WebkitBackgroundClip: "text", 
-            MozBackgroundClip: "text", 
-            textShadow: "2px 2px 8px rgba(0, 0, 0, 0.5)", 
-        }}
-        >
-  Speakers
-    </motion.div> */}
-
-      {/* Grid of Speaker Cards */}
-      {/* <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+      {/* Speaker Cards */}
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
         initial="hidden"
         animate="visible"
         variants={{
           hidden: { opacity: 0 },
-          visible: { opacity: 1, transition: { staggerChildren: 0.2 } }, 
+          visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
         }}
       >
         {speakers.map((speaker, index) => (
           <motion.div
             key={index}
-            className="text-center rounded-2xl bg-amber-50 hover:shadow w-[400px] h-[480px]"
-            whileHover={{
-              rotateX: 25, 
-              rotateY: 10, 
-              boxShadow: "0px 20px 50px rgba(8,112,184,0.7)", 
-              y: -5, 
-            }}
-            style={{
-              translateZ: 100, 
-            }}
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{
-              duration: 0.5,
-              ease: "easeInOut",
-            }}
+            className="relative bg-gray-800 text-white rounded-xl shadow-xl overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            variants={fadeInUp}
           >
+            {/* Speaker Image */}
             <img
               src={speaker.imageUrl}
               alt={speaker.alt}
-              className="w-full h-auto p-3 rounded-2xl"
-              width="300"
-              height="300"
+              className="w-full h-64 object-cover"
             />
-            <h3 className="mt-4 text-xl font-bold">{speaker.name}</h3>
-            <p className="text-gray-600">{speaker.title}</p>
+
+            {/* Speaker Info */}
+            <div className="p-5 text-center">
+              <h3 className="text-xl font-semibold">{speaker.name}</h3>
+              <p className="text-cyan-400 text-sm uppercase tracking-wide">
+                {speaker.title}
+              </p>
+            </div>
           </motion.div>
         ))}
-      </motion.div> */}
+      </motion.div>
     </main>
   );
 };
 
+export default Speakers;

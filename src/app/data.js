@@ -1,4 +1,4 @@
-const speakers = [
+export const speakers = [
     {
       name: 'Kristin Watson',
       title: 'EXECUTIVE DIRECTOR',
@@ -37,4 +37,4 @@ const speakers = [
     },
   ];
 
-  export {speakers}
+ 
